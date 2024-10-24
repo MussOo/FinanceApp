@@ -38,4 +38,4 @@ next-env.d.ts
 
 # package
 /package-lock.json
-/package.json  
+/package.json
