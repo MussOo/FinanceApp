@@ -4,6 +4,7 @@ import CardExpense from "./CardExpense";
 import { useSelector } from "react-redux";
 import store from "@/context/store";
 import Slice from "@/context/reducer";
+import DoughnutGraph from "./DoughnutGraph";
 
 function Main() {
   const [new_item, setNewItem] = useState(undefined);
@@ -119,7 +120,12 @@ function Main() {
           return <CardExpense key={expense.id} data={expense} />;
         })}
       </div>
-      <div className="bg-white py-4 px-2 w-1/2 rounded-sm "></div>
+      <div className="bg-white py-10 px-2 w-1/2 rounded-sm flex flex-col gap-10 items-center">
+        <div className="w-11/12 bg-red-100 py-4 px-2 rounded-sm">
+          <DoughnutGraph />
+        </div>
+        <div className="w-11/12 bg-red-400 py-4 px-2 rounded-sm">dzadaz</div>
+      </div>
     </div>
   );
 }
