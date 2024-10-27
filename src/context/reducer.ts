@@ -21,6 +21,7 @@ const Slice = createSlice({
                 id: 1,
                 name: "Rent",
                 subtotal: 200,
+                color: "#f21d1d",
                 items : [
                     {
                         id: 1,
@@ -39,6 +40,16 @@ const Slice = createSlice({
     reducers: {
         addExpense: (state, action) => {
             state.expenses.push({...state.expenses, ...action.payload})
+        },
+        changecolorExpense: (state, action) => {
+            state.expenses = state.expenses.map((expense) => {
+                if (expense.id === action.payload.id) {
+                    expense.color = action.payload.color
+                    return expense
+                }
+                return expense
+            })
+            
         },
         editExpense: (state, action) => {
             state.expenses = state.expenses.map((expense) => {
