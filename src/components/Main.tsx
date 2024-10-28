@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import store from "@/context/store";
 import Slice from "@/context/reducer";
 import DoughnutGraph from "./DoughnutGraph";
+import Details from "./Details";
 
 function Main() {
   const [new_item, setNewItem] = useState(undefined);
@@ -13,8 +14,8 @@ function Main() {
   const { addIncome } = Slice.actions;
 
   return (
-    <div className="flex flex-row bg-[#FBFDFF]">
-      <div className="flex flex-col w-1/2 h-screen py-10 items-center gap-10">
+    <div className="flex flex-col items-center md:flex-row bg-[#FBFDFF] text-xl">
+      <div className="flex flex-col w-11/12 md:w-1/2 py-10 items-center gap-10">
         <div className="w-9/12 rounded-sm text-[#46A758] ">
           <span className="text-lg font-semibold">Revenus</span>
           <div className="w-full bg-white py-4 px-4 rounded-sm text-md flex flex-col gap-3">
@@ -120,11 +121,34 @@ function Main() {
           return <CardExpense key={expense.id} data={expense} />;
         })}
       </div>
-      <div className="bg-white py-10 px-2 w-1/2 rounded-sm flex flex-col gap-10 items-center">
-        <div className="w-11/12 bg-red-100 py-4 px-2 rounded-sm">
+      <div className=" py-10 px-2 w-11/12 md:w-1/2 rounded-sm flex flex-col gap-10 items-center">
+        <div className="w-11/12 flex justify-center py-4 px-2 rounded-sm">
           <DoughnutGraph />
         </div>
-        <div className="w-11/12 bg-red-400 py-4 px-2 rounded-sm">dzadaz</div>
+        <div className="w-full space-y-14 md:space-y-0 py-4 px-2 rounded-sm flex flex-col md:flex-row justify-evenly">
+          <div className="md:w-3/5 border-black py-2 px-4 bg-white rounded-md">
+            {expenses.map((expense, k) => {
+              return (
+                <div
+                  key={k}
+                  className="flex md:flex-row justify-between items-center px-2 py-1 border-b-2 my-2"
+                >
+                  <div
+                    className="w-16 h-5 rounded-sm"
+                    style={{
+                      backgroundColor: expense.color,
+                    }}
+                  ></div>
+                  <span>{expense.name}</span>
+                  <span> - {expense.subtotal}€</span>
+                </div>
+              );
+            })}
+          </div>
+          <div className="md:w-2/5 border-black py-2 px-4 flex justify-center bg-white rounded-md">
+            <Details />
+          </div>
+        </div>
       </div>
     </div>
   );
