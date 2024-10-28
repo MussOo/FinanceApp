@@ -5,34 +5,15 @@ const Slice = createSlice({
     name: "expense",
     initialState: {
         income: [
-            {
-                id: 1,
-                name: "Salary",
-                price : 200
-            },
-            {
-                id: 2,
-                name: "Bonus",
-                price : 100
-            }
+            
         ],
         expenses: [
             {
                 id: 1,
                 name: "Obligatory Charge",
-                subtotal: 200,
+                subtotal: 0,
                 color: "#f21d1d",
                 items : [
-                    {
-                        id: 1,
-                        name: "Water",
-                        price: 100
-                    },
-                    {
-                        id: 2,
-                        name: "Food",
-                        price: 100
-                    }
                 ]
             }
         ],
