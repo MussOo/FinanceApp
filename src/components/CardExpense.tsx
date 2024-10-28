@@ -15,7 +15,7 @@ function CardExpense({ data }: { data: object }) {
         <div
           key={k}
           className="flex flex-row justify-between px-2 py-1 rounded-md "
-          style={{ border: "1px solid", borderColor: color }}
+          style={{ border: "1px solid", borderColor: data.color }}
         >
           <span>{item.name}</span>
           <span>- {item.price}€</span>
@@ -26,13 +26,12 @@ function CardExpense({ data }: { data: object }) {
     setItems(view_items);
   }, [data, color]);
 
-  useEffect(() => {}, [color]);
   return (
-    <div className={"w-9/12 rounded-sm"} style={{ color: color }}>
+    <div className={"w-9/12 rounded-sm"} style={{ color: data.color }}>
       <div className="flex flex-row justify-between px-2">
         <span className="text-lg font-semibold">{data.name}</span>
         <div className="flex flex-row space-x-2">
-          {data.color}
+          <label htmlFor="color">Color : </label>
           <input
             type="color"
             id="head"
@@ -43,16 +42,27 @@ function CardExpense({ data }: { data: object }) {
           {data.color !== color && (
             <button
               onClick={() => {
-                setColor(data.color);
                 store.dispatch(
-                  changecolorExpense({ color: data.color, id: data.id })
+                  changecolorExpense({ color: color, id: data.id })
                 );
               }}
             >
-              <ArrowRightIcon />
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.4669 3.72684C11.7558 3.91574 11.8369 4.30308 11.648 4.59198L7.39799 11.092C7.29783 11.2452 7.13556 11.3467 6.95402 11.3699C6.77247 11.3931 6.58989 11.3355 6.45446 11.2124L3.70446 8.71241C3.44905 8.48022 3.43023 8.08494 3.66242 7.82953C3.89461 7.57412 4.28989 7.55529 4.5453 7.78749L6.75292 9.79441L10.6018 3.90792C10.7907 3.61902 11.178 3.53795 11.4669 3.72684Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
             </button>
           )}
-          <label htmlFor="color">color</label>
         </div>
       </div>
       <div className="w-full bg-white py-4 px-4 rounded-sm text-md flex flex-col gap-3">
@@ -62,7 +72,7 @@ function CardExpense({ data }: { data: object }) {
             className={
               "flex flex-row justify-between px-3 py-2 rounded-md border-dashed border-2  hover:cursor-pointer hover:scale-95 transition-all duration-200 "
             }
-            style={{ borderColor: color }}
+            style={{ borderColor: data.color }}
           >
             <div className="flex flex-col space-y-1">
               <input
@@ -142,7 +152,7 @@ function CardExpense({ data }: { data: object }) {
                 : "flex" +
                   " flex-row justify-center px-2 py-1 rounded-md border-dashed border-2 hover:cursor-pointer hover:scale-95 transition-all duration-200"
             }
-            style={{ borderColor: color }}
+            style={{ borderColor: data.color }}
           >
             <span className="text-xl">+</span>
           </div>

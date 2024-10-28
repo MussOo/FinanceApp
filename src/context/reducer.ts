@@ -19,7 +19,7 @@ const Slice = createSlice({
         expenses: [
             {
                 id: 1,
-                name: "Rent",
+                name: "Obligatory Charge",
                 subtotal: 200,
                 color: "#f21d1d",
                 items : [
@@ -71,6 +71,7 @@ const Slice = createSlice({
             state.expenses = state.expenses.map((expense) => {
                 if (expense.id === expense_id) {
                     expense.items.push(new_item)
+                    expense.subtotal += new_item.price
                 }
                 return expense
             })
