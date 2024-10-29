@@ -1,28 +1,35 @@
+import { state } from "@/app/Interfaces/state";
 import Slice from "@/context/reducer";
 import store from "@/context/store";
-import { ArrowRightIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
-function CardExpense({ data }: { data: object }) {
+interface item {
+  name: string;
+  price: number;
+}
+function CardExpense({ data }: { data: state["expenses"][0] }) {
   const [color, setColor] = useState(data.color);
   const [items, setItems] = useState([]);
-  const [new_item, setNewItem] = useState(undefined);
+  const [new_item, setNewItem] = useState<item>();
   const { addItem, changecolorExpense } = Slice.actions;
 
   useEffect(() => {
-    const view_items = data.items.map((item, k) => {
-      return (
-        <div
-          key={k}
-          className="flex flex-row justify-between px-2 py-1 rounded-md "
-          style={{ border: "1px solid", borderColor: data.color }}
-        >
-          <span>{item.name}</span>
-          <span>- {item.price}€</span>
-        </div>
-      );
-    });
-
+    const view_items: JSX.Element[] = data.items.map(
+      (item: { name: string; price: number }, k: number) => {
+        return (
+          <div
+            key={k}
+            className="flex flex-row justify-between px-2 py-1 rounded-md "
+            style={{ border: "1px solid", borderColor: data.color }}
+          >
+            <span>{item.name}</span>
+            <span>- {item.price}€</span>
+          </div>
+        );
+      }
+    );
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     setItems(view_items);
   }, [data, color]);
 

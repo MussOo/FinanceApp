@@ -1,18 +1,17 @@
+import { state } from "@/app/Interfaces/state";
 import React from "react";
 import { useSelector } from "react-redux";
 
 function Details() {
-  const income = useSelector((state: any) => state.income);
+  const income = useSelector((state: state) => state.income);
   const subtotal_income = income.reduce(
-    (acc: any, curr: any) => acc + curr.price,
+    (acc: number, curr: { name: string; price: number }) => acc + curr.price,
     0
   );
-
-  console.log(subtotal_income);
   // 50% de la somme des revenus
-  let obligatory = subtotal_income * 0.5;
-  let hobbies = subtotal_income * 0.3;
-  let savings = subtotal_income * 0.2;
+  const obligatory = subtotal_income * 0.5;
+  const hobbies = subtotal_income * 0.3;
+  const savings = subtotal_income * 0.2;
 
   return (
     <div className="w-9/12 rounded-sm ">

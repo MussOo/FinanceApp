@@ -6,11 +6,16 @@ import store from "@/context/store";
 import Slice from "@/context/reducer";
 import DoughnutGraph from "./DoughnutGraph";
 import Details from "./Details";
+import { state } from "@/app/Interfaces/state";
 
+interface income {
+  name: string;
+  price: number;
+}
 function Main() {
-  const [new_item, setNewItem] = useState(undefined);
-  const expenses = useSelector((state: any) => state.expenses);
-  const income = useSelector((state: any) => state.income);
+  const [new_item, setNewItem] = useState<income>();
+  const expenses = useSelector((state: state) => state.expenses);
+  const income = useSelector((state: state) => state.income);
   const { addIncome } = Slice.actions;
 
   return (
@@ -19,17 +24,19 @@ function Main() {
         <div className="w-9/12 rounded-sm text-[#46A758] ">
           <span className="text-lg font-semibold">Revenus</span>
           <div className="w-full bg-white py-4 px-4 rounded-sm text-md flex flex-col gap-3">
-            {income.map((income, k) => {
-              return (
-                <div
-                  key={k}
-                  className="flex flex-row justify-between px-2 py-1 rounded-md shadow-sm shadow-[#46A758]"
-                >
-                  <span>{income.name}</span>
-                  <span>+ {income.price}€</span>
-                </div>
-              );
-            })}
+            {income.map(
+              (income: { name: string; price: number }, k: number) => {
+                return (
+                  <div
+                    key={k}
+                    className="flex flex-row justify-between px-2 py-1 rounded-md shadow-sm shadow-[#46A758]"
+                  >
+                    <span>{income.name}</span>
+                    <span>+ {income.price}€</span>
+                  </div>
+                );
+              }
+            )}
             {new_item ? (
               <div className="flex flex-row justify-between px-3 py-2 rounded-md border-dashed border-2 border-[#46A758] hover:cursor-pointer hover:scale-95 transition-all duration-200">
                 <div className="flex flex-col space-y-1">

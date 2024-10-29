@@ -2,24 +2,27 @@ import React, { useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement } from "chart.js";
 import { useSelector } from "react-redux";
-import store from "@/context/store";
+import { state } from "@/app/Interfaces/state";
 Chart.register(ArcElement);
 
 function DoughnutGraph() {
   const [data, setData] = React.useState(null);
-  const expenses = useSelector((state: any) => state.expenses);
-  const income = useSelector((state: any) => state.income);
+  const expenses = useSelector((state: state) => state.expenses);
+  const income = useSelector((state: state) => state.income);
 
   useEffect(() => {
     const value: number[] = [];
     const colors: string[] = [];
 
-    expenses.map((expense) => {
+    expenses.map((expense: { subtotal: number; color: string }) => {
       value.push(expense.subtotal);
       colors.push(expense.color);
     });
 
-    const subtotal_income = income.reduce((acc, curr) => acc + curr.price, 0);
+    const subtotal_income = income.reduce(
+      (acc: number, curr: { price: number }) => acc + curr.price,
+      0
+    );
     value.push(subtotal_income);
     colors.push("#46A758");
 
@@ -32,6 +35,8 @@ function DoughnutGraph() {
         },
       ],
     };
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     setData(data);
   }, [expenses, income]);
 

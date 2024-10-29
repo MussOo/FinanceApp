@@ -1,3 +1,5 @@
+import { Income } from "@/app/Interfaces/Income";
+import { state } from "@/app/Interfaces/state";
 import { createSlice } from "@reduxjs/toolkit";
 
 
@@ -13,8 +15,7 @@ const Slice = createSlice({
                 name: "Obligatory Charge",
                 subtotal: 0,
                 color: "#f21d1d",
-                items : [
-                ]
+                items : []
             }
         ],
     },
@@ -48,9 +49,12 @@ const Slice = createSlice({
         },
         addItem: (state, action) => {
             const expense_id = action.payload.id_expense
-            const new_item = action.payload.item
-            state.expenses = state.expenses.map((expense) => {
+            const new_item : state["expenses"][0]["items"][0] = action.payload.item
+
+            state.expenses = state.expenses.map((expense ) => {
                 if (expense.id === expense_id) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
                     expense.items.push(new_item)
                     expense.subtotal += new_item.price
                 }
@@ -59,15 +63,20 @@ const Slice = createSlice({
             return state
         },
     addIncome: (state, action) => {
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
         state.income.push(action.payload)
 
         return state
     },
     deleteIncome: (state, action) => {
-        state.income = state.income.filter((income) => income.id !== action.payload)
+        state.income = state.income.filter((income : Income) => income.id !== action.payload)
     },
     editIncome: (state, action) => {
-        state.income = state.income.map((income) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        state.income = state.income.map((income : Income) => {
             if (income.id === action.payload.id) {
                 return action.payload
             }
